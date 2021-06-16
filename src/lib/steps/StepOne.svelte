@@ -1,28 +1,36 @@
 <script>
-	export let value;
+	import Label from '$lib/Label.svelte';
+
+	export let titleValue;
+	export let dateValue;
 </script>
 
-<h1>Step One</h1>
-
 <div>
-	<label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-	<div class="mt-1 w-1/2">
+	<Label name="title" label="Title" />
+	<div class="mt-1">
 		<input
 			type="text"
 			name="title"
 			id="title"
-			class="py-2 px-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+			class="h-14 py-4 px-2 text-xl mb-8 text-gray-800 shadow-md focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md"
 			placeholder="Enter the comic book title"
-			bind:value
+			bind:value={titleValue}
 		/>
 	</div>
-	<label class="block text-sm font-medium text-gray-700" for="dateRead">Date Read</label>
-	<div class="mt-1 w-1/2">
+	<Label name="dateRead" label="Date Read" />
+	<div class="mt-1 ">
 		<input
 			type="date"
 			name="dateRead"
 			id="dateRead"
-			class="py-2 px-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+			class="h-14 py-4 px-2 text-xl mb-8 text-gray-800 shadow-md focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md"
+			bind:value={dateValue}
 		/>
 	</div>
 </div>
+
+<style>
+	::placeholder {
+		@apply text-gray-700;
+	}
+</style>
