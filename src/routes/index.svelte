@@ -1,23 +1,22 @@
 <script>
 	import supabase from '$lib/db';
+	import ComicList from '$lib/ComicList.svelte';
 
 	async function getComics() {
-		let { data: Comics, error } = await supabase.from('Comics').select('*');
-		return Comics;
+		let { data: comics, error } = await supabase
+			.from('comics')
+			.select('*')
+			.order('date_read', { ascending: false });
+		return comics;
 	}
 
 	getComics();
 </script>
 
-<h1>Home page</h1>
-{#await getComics()}
-	<!-- promise is pending -->
-	<p>Waiting....</p>
-{:then comics}
-	<!-- promise was fulfilled -->
-	<p>You have comics!</p>
-	{#each comics as comic}
-		<!-- content here -->
-		<p>{comic.Title}</p>
-	{/each}
-{/await}
+<section>
+	{#await getComics()}
+		<p>Waiting....</p>
+	{:then comicsData}
+		<ComicList {comicsData} />
+	{/await}
+</section>
