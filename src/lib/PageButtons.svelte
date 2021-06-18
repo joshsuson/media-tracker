@@ -8,7 +8,7 @@
 	export let handlePrevPage;
 </script>
 
-<div class="w-full flex justify-end">
+<div class="w-full flex justify-end my-4">
 	{#if firstPage}
 		<button class="flex items-center uppercase text-lg text-yellow-400" on:click={handleNextPage}>
 			Next Page
