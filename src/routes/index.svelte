@@ -49,4 +49,5 @@
 <section class="mt-12">
 	<PageButtons {lastPage} {firstPage} {handleNextPage} {handlePrevPage} />
 	<ComicList comics={currentComics} />
+	<PageButtons {lastPage} {firstPage} {handleNextPage} {handlePrevPage} />
 </section>
