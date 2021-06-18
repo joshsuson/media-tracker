@@ -1,22 +1,26 @@
-<script>
+<script context="module">
 	import supabase from '$lib/db';
-	import ComicList from '$lib/ComicList.svelte';
 
-	async function getComics() {
+	export async function load() {
 		let { data: comics, error } = await supabase
 			.from('comics')
 			.select('*')
 			.order('date_read', { ascending: false });
-		return comics;
-	}
 
-	getComics();
+		return {
+			props: {
+				comics
+			}
+		};
+	}
+</script>
+
+<script>
+	import ComicList from '$lib/ComicList.svelte';
+
+	export let comics;
 </script>
 
 <section class="mt-12">
-	{#await getComics()}
-		<p>Waiting....</p>
-	{:then comicsData}
-		<ComicList {comicsData} />
-	{/await}
+	<ComicList {comics} />
 </section>

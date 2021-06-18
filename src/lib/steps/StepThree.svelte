@@ -17,8 +17,8 @@
 </script>
 
 <Label name="type" label="Type" />
-<div class="flex items-center justify-between">
-	<div class="w-80">
+<div class="sm:flex sm:items-center sm:justify-between">
+	<div class="sm:w-72 mb-4 sm:mb-0">
 		<label class={typeValue === 'Collected Volume' ? checkedBackground : notCheckedBackground}>
 			<input
 				bind:group={typeValue}
@@ -35,7 +35,7 @@
 			/>
 		</label>
 	</div>
-	<div class="w-80">
+	<div class="sm:w-72">
 		<label class={typeValue === 'Single Issue' ? checkedBackground : notCheckedBackground}>
 			<input
 				bind:group={typeValue}

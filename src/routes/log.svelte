@@ -3,8 +3,12 @@
 	import StepTwo from '$lib/steps/StepTwo.svelte';
 	import StepThree from '$lib/steps/StepThree.svelte';
 	import StepFour from '$lib/steps/StepFour.svelte';
+	import StepFive from '$lib/steps/StepFive.svelte';
 	import Button from '$lib/Button.svelte';
 	import supabase from '$lib/db';
+	import { session } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { browser } from '$app/env';
 
 	let step = 1;
 	let comic = {};
@@ -19,8 +23,21 @@
 
 	const logComic = async () => {
 		await supabase.from('comics').insert(comic);
+		step += 1;
+		title = null;
+		dateRead = null;
+		rating = null;
+		type = null;
+		issueNumbers = null;
+		numberOfIssues = null;
+		writer = null;
 		console.log('Your comic was logged');
 	};
+
+	if (browser) {
+		$session = supabase.auth.session();
+		if (!$session) goto('/login');
+	}
 
 	$: {
 		comic = {
@@ -36,7 +53,7 @@
 </script>
 
 <section class="min-h-screen grid justify-center items-center grid-cols-1">
-	<div>
+	<div class="p-4">
 		{#if step === 1}
 			<StepOne bind:titleValue={title} bind:dateValue={dateRead} />
 		{:else if step === 2}
@@ -49,16 +66,20 @@
 			/>
 		{:else if step === 4}
 			<StepFour bind:writerValue={writer} />
+		{:else if step === 5}
+			<StepFive />
 		{/if}
-		<div class="flex justify-end">
+		<div class="sm:flex sm:justify-end">
 			{#if step === 4}
 				<Button click={() => (step -= 1)} text="Back" left={true} />
-				<Button text="Log" click={logComic} />
+				<Button text="Log" click={logComic} left={false} />
+			{:else if step === 5}
+				<Button click={() => (step = 1)} text="Log Another" left={false} />
 			{:else if step < 4 && step > 1}
 				<Button click={() => (step -= 1)} text="Back" left={true} />
-				<Button click={() => (step += 1)} text="Next" />
+				<Button click={() => (step += 1)} text="Next" left={false} />
 			{:else}
-				<Button click={() => (step += 1)} text="Next" />
+				<Button click={() => (step += 1)} text="Next" left={false} />
 			{/if}
 		</div>
 	</div>
