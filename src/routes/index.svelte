@@ -41,9 +41,7 @@
 	};
 
 	$: {
-		// if (currentComics.length < 10) lastPage = true;
 		currentComics.length < 10 ? (lastPage = true) : (lastPage = false);
-		// if (currentPage > 1) firstPage = false;
 		currentPage > 1 ? (firstPage = false) : (firstPage = true);
 	}
 </script>
