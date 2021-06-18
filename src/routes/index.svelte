@@ -13,7 +13,7 @@
 	getComics();
 </script>
 
-<section>
+<section class="mt-12">
 	{#await getComics()}
 		<p>Waiting....</p>
 	{:then comicsData}
