@@ -5,7 +5,8 @@
 		let { data: comics, error } = await supabase
 			.from('comics')
 			.select('*')
-			.order('date_read', { ascending: false });
+			.order('date_read', { ascending: false })
+			.order('title', { ascending: false });
 
 		return {
 			props: {
@@ -18,6 +19,7 @@
 <script>
 	import ComicList from '$lib/ComicList.svelte';
 	import PageButtons from '$lib/PageButtons.svelte';
+	import Dashboard from '$lib/dashboard/Dashboard.svelte';
 
 	export let comics;
 	let currentPage = 1;
@@ -47,6 +49,7 @@
 </script>
 
 <section class="mt-12">
+	<Dashboard {comics} />
 	<PageButtons {lastPage} {firstPage} {handleNextPage} {handlePrevPage} />
 	<ComicList comics={currentComics} />
 	<PageButtons {lastPage} {firstPage} {handleNextPage} {handlePrevPage} />
